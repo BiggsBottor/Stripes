@@ -1,0 +1,35 @@
+//*-- Mixins here --*/
+//*
+@mixin position_strips {
+    @for $i from 1 through 5 {
+        @if $i==0 {
+            .strips__strip:nth-child(#{$i}) {
+                left: 0vw;
+            }
+        }
+        @else {
+            .strips__strip:nth-child(#{$i}) {
+                left: ($i - 1) * 20vw;
+            }
+        }
+    }
+}
+
+//*-- Background colors --*/
+// Block 1: #244F75;
+// Block 2: #60BFBF;
+// Block 3: #8C4B7E;
+// Block 4: #F8BB44;
+// Block 5: #F24B4B;
+$background-colors-list: #244F75 #60BFBF #8C4B7E #F8BB44 #F24B4B;
+//*
+@mixin BGElements {
+    @each $color in $background-colors-list {
+        $i: index($background-colors-list, $color); //index([list], [element]) = return the current list element's index
+        .strips__strip:nth-child(#{$i}) {
+            .strip__content {
+                background: $color;
+            }
+        }
+    }
+}
