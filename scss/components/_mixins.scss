@@ -33,3 +33,37 @@ $background-colors-list: #244F75 #60BFBF #8C4B7E #F8BB44 #F24B4B;
         }
     }
 }
+
+$dir-3d-list: ((-100%, 0, 0), (0, 100%, 0), (0, -100%, 0), (0, 100%, 0), (100%, 0, 0));
+//*
+@mixin anim {
+    $lenght: length($dir-3d-list);
+    @for $e from 1 through $lenght {
+        .strips__strip:nth-child(#{$e}) {
+            .strip__content {
+                -webkit-transform: translate3d(nth($dir-3d-list, $e));
+                transform: translate3d(-100%, 0, 0);
+                -webkit-animation-name: strip#{$e};
+                animation-name: strip#{$e};
+                -webkit-animation-delay: $e * 0.1s;
+                animation-delay: $e * 0.1s;
+            }
+        }
+    }
+}
+
+@mixin keyframe {
+    $lenght: length($dir-3d-list);
+    @for $e from 1 through $lenght {
+        @keyframes strip#{$e} {
+            0% {
+                -webkit-transform: translate3d(nth($dir-3d-list, $e));
+                transform: translate3d(nth($dir-3d-list, $e));
+            }
+            100% {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+        }
+    }
+}
